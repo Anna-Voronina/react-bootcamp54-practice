@@ -1,4 +1,19 @@
 import { formatDateToNow } from 'service/formatDate';
+import {
+  Avatar,
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
+  CardPoster,
+  CardText,
+  CardTitle,
+  Date,
+  Tag,
+  UserBox,
+  UserInfo,
+  UserName,
+} from './BlogCard.styled';
 
 export const BlogCard = ({
   name,
@@ -10,24 +25,24 @@ export const BlogCard = ({
   avatar,
 }) => {
   return (
-    <div>
-      <div>
-        <img src={poster} alt={tag} />
-      </div>
-      <div>
-        <h2>{tag}</h2>
-        <p>{title}</p>
-        <p>{description}</p>
-      </div>
-      <div>
-        <div>
-          <img src={avatar} alt={name} />
-          <div>
-            <h3>{name}</h3>
-            <p>{formatDateToNow(postedAt)}</p>
-          </div>
-        </div>
-      </div>
-    </div>
+    <Card>
+      <CardHeader>
+        <CardPoster src={poster} alt={tag} />
+      </CardHeader>
+      <CardBody>
+        <Tag>{tag}</Tag>
+        <CardTitle>{title}</CardTitle>
+        <CardText>{description}</CardText>
+      </CardBody>
+      <CardFooter>
+        <UserBox>
+          <Avatar src={avatar} alt={name} />
+          <UserInfo>
+            <UserName>{name}</UserName>
+            <Date>{formatDateToNow(postedAt)}</Date>
+          </UserInfo>
+        </UserBox>
+      </CardFooter>
+    </Card>
   );
 };
