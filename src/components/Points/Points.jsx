@@ -1,3 +1,6 @@
+import { Notification } from 'components/Notification/Notification';
+import { PointsOptions } from 'components/PointsOptions/PointsOptions';
+import { Statistics } from 'components/Statistics/Statistics';
 import React, { Component } from 'react';
 
 export class Points extends Component {
@@ -21,23 +24,20 @@ export class Points extends Component {
     const total = this.countTotalPoints();
     return (
       <div>
-        {Object.keys(this.state).map(item => {
-          return (
-            <button
-              key={item}
-              type="button"
-              onClick={() => {
-                this.onLeavePoint(item);
-              }}
-            >
-              {item}
-            </button>
-          );
-        })}
-        <p>Total points: {total}</p>
+        <PointsOptions
+          options={Object.keys(this.state)}
+          onLeavePoint={this.onLeavePoint}
+        />
+        {total > 0 ? (
+          <Statistics points={Object.entries(this.state)} total={total} />
+        ) : (
+          <Notification message="No points" />
+        )}
       </div>
     );
   }
 }
+
+
 
 export default Points;
