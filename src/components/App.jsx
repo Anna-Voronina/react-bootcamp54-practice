@@ -1,13 +1,24 @@
-import { BlogCard } from './BlogCard/BlogCard';
-import { Stats } from './Stats/Stats';
-import article from 'data/article.json';
-import data from 'data/data.json';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
 
+import { ModuleOne } from 'tabs/ModuleOne';
+import { ModuleTwo } from 'tabs/ModuleTwo';
 export const App = () => {
   return (
     <>
-      <BlogCard {...article} />
-      <Stats title="Main Statistics" stats={data} />
+      <Tabs>
+        <TabList>
+          <Tab>Module One</Tab>
+          <Tab>Module Two</Tab>
+        </TabList>
+
+        <TabPanel>
+          <ModuleOne />
+        </TabPanel>
+        <TabPanel>
+          <ModuleTwo />
+        </TabPanel>
+      </Tabs>
     </>
   );
 };

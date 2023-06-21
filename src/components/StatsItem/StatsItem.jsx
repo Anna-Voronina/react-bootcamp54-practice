@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 export const StatsItem = ({ total, title }) => {
   return (
     <li>
@@ -6,4 +8,9 @@ export const StatsItem = ({ total, title }) => {
       <p>{title}</p>
     </li>
   );
+};
+
+StatsItem.propTypes = {
+  total: PropTypes.number.isRequired,
+  title: PropTypes.string.isRequired,
 };
