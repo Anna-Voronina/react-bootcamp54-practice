@@ -1,7 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 
-export default createGlobalStyle
-`
+export default createGlobalStyle`
 body {
   font-family: sans-serif;
   line-height: 1.5;
@@ -25,4 +24,14 @@ img {
   max-width: 100%;
   height: auto;
 }
+button {
+    padding: 0;
+    border: none;
+    font: inherit;
+    color: inherit;
+    background-color: transparent;
+    cursor: pointer;
+  }
+
+
   `;

@@ -16,8 +16,5 @@ export const Statistics = ({ points, total }) => {
 };
 
 Statistics.propTypes = {
-  points: PropTypes.arrayOf(
-    // PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-      PropTypes.array,
-  ).isRequired,
+  points: PropTypes.arrayOf(PropTypes.array).isRequired,
 };
