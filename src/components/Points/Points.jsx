@@ -38,6 +38,4 @@ export class Points extends Component {
   }
 }
 
-
-
 export default Points;
