@@ -1,5 +1,6 @@
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
+import { Gallery } from 'tabs/Gallery';
 
 import { ModuleOne } from 'tabs/ModuleOne';
 import { ModuleToDo } from 'tabs/ModuleToDo';
@@ -12,6 +13,7 @@ export const App = () => {
           <Tab>Module One</Tab>
           <Tab>Module Two</Tab>
           <Tab>Module ToDo</Tab>
+          <Tab>Gallery</Tab>
         </TabList>
 
         <TabPanel>
@@ -22,6 +24,9 @@ export const App = () => {
         </TabPanel>
         <TabPanel>
           <ModuleToDo />
+        </TabPanel>
+         <TabPanel>
+          <Gallery />
         </TabPanel>
       </Tabs>
     </>
