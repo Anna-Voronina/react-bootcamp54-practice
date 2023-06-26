@@ -3,6 +3,9 @@ import Filter from 'components/Filter/Filter';
 import { ToDoForm } from 'components/ToDoForm/ToDoForm';
 import { ToDoList } from 'components/ToDoList/ToDoList';
 import { Component } from 'react';
+import { load, save } from 'utils/localstorage';
+
+const initialState = [];
 
 export class ModuleToDo extends Component {
   state = {
@@ -11,6 +14,19 @@ export class ModuleToDo extends Component {
     isEditing: false,
     curentToDo: {},
   };
+
+  componentDidUpdate(prevProps, prevState) {
+    const { toDoList } = this.state;
+    if (toDoList !== prevState.toDoList) {
+      save(toDoList, 'toDoList');
+    }
+  }
+
+  componentDidMount() {
+    const data = load('toDoList') ?? initialState;
+
+    this.setState({ toDoList: data });
+  }
 
   handleFilter = e => {
     this.setState({ filter: e.target.value });
