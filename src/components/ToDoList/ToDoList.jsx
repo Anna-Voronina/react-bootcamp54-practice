@@ -8,7 +8,7 @@ import {
 } from './ToDoList.styled';
 import { RiDeleteBinLine, RiEdit2Line } from 'react-icons/ri';
 
-export const ToDoList = ({ toDo, onDeleteToDo }) => {
+export const ToDoList = ({ toDo, onDeleteToDo,handleEdit }) => {
   return (
     <Grid>
       {toDo.map((item, index) => (
@@ -22,7 +22,7 @@ export const ToDoList = ({ toDo, onDeleteToDo }) => {
               <RiDeleteBinLine size={24} />
             </DeleteButton>
 
-            <EditButton type="button" onClick={() => null}>
+            <EditButton type="button" onClick={() => handleEdit(item)}>
               <RiEdit2Line size={24} />
             </EditButton>
           </TodoWrapper>
