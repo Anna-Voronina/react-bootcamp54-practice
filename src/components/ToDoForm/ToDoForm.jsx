@@ -1,30 +1,29 @@
+import { useState } from 'react';
 import { FormBtn, SearchFormStyled, InputSearch } from './ToDoForm.styled';
 import { FiSearch } from 'react-icons/fi';
-import { Component } from 'react';
 
-export class ToDoForm extends Component {
-  state = {
-    value: '',
+
+export const ToDoForm =({onSubmit}) => {
+ const [value, setValue] = useState('')
+ 
+  const handleChangeValue = ({ target }) => {
+  setValue(target.value)
   };
-  handleChangeValue = ({ target }) => {
-    this.setState({ value: target.value });
-  };
-  handleSubmit = e => {
+ 
+  const handleSubmit = e => {
     e.preventDefault();
   
-    this.props.onSubmit(this.state.value);
-    this.setState({ value: '' });
+    onSubmit(value);
+   setValue('')
   };
-  render() {
-    const { value } = this.state;
     return (
-      <SearchFormStyled onSubmit={this.handleSubmit}>
+      <SearchFormStyled onSubmit={handleSubmit}>
         <FormBtn type="submit">
           <FiSearch size="16px" />
         </FormBtn>
         <InputSearch
           value={value}
-          onChange={this.handleChangeValue}
+          onChange={handleChangeValue}
           placeholder="What do you want to write?"
           name="search"
           required
@@ -32,21 +31,5 @@ export class ToDoForm extends Component {
         />
       </SearchFormStyled>
     );
-  }
 }
 
-// export const ToDoForm = () => {
-//   return (
-//     <SearchFormStyled>
-//       <FormBtn type="submit">
-//         <FiSearch size="16px" />
-//       </FormBtn>
-//       <InputSearch
-//         placeholder="What do you want to write?"
-//         name="search"
-//         required
-//         autoFocus
-//       />
-//     </SearchFormStyled>
-//   );
-// };

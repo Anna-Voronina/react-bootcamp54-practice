@@ -2,117 +2,103 @@ import { EditForm } from 'components/EditForm/EditForm';
 import Filter from 'components/Filter/Filter';
 import { ToDoForm } from 'components/ToDoForm/ToDoForm';
 import { ToDoList } from 'components/ToDoList/ToDoList';
-import { Component } from 'react';
-import { load, save } from 'utils/localstorage';
+import { useEffect, useState } from 'react';
+import { load } from 'utils/localstorage';
 
 const initialState = [];
 
-export class ModuleToDo extends Component {
-  state = {
-    toDoList: [],
-    filter: '',
-    isEditing: false,
-    curentToDo: {},
+export const ModuleToDo = () => {
+   const [toDoList, setToDoList] = useState(() => load('toDoList') ?? initialState);
+   const [filter, setFilter] = useState('');
+   const [isEditing, setIsEditing] = useState(false);
+   const [currentToDo, setCurrentToDo] = useState({});
+
+
+
+useEffect(()=>{
+  localStorage.setItem('toDoList', JSON.stringify(toDoList));
+  },[toDoList])
+
+
+  const handleFilter = e => {
+  setFilter(e.target.value);
   };
 
-  componentDidUpdate(prevProps, prevState) {
-    const { toDoList } = this.state;
-    if (toDoList !== prevState.toDoList) {
-      save(toDoList, 'toDoList');
-    }
-  }
+ const onDeleteToDo = id => {
+ setToDoList  ( prevState => prevState.filter(item => item.id !== id))
+ };
 
-  componentDidMount() {
-    const data = load('toDoList') ?? initialState;
 
-    this.setState({ toDoList: data });
-  }
-
-  handleFilter = e => {
-    this.setState({ filter: e.target.value });
-  };
-
-  onDeleteToDo = id => {
-    this.setState(prevState => ({
-      toDoList: prevState.toDoList.filter(item => item.id !== id),
-    }));
-  };
-  onSubmit = text => {
-    const isExsist = this.state.toDoList.find(
+  const onSubmit = text => {
+    const isExsist = toDoList.find(
       elem => elem.text.toLowerCase() === text.toLowerCase()
     );
     if (isExsist) {
       alert('Text already exsist!');
       return;
     }
-    this.setState(prevState => ({
-      toDoList: [
-        ...prevState.toDoList,
-        {
-          id: crypto.randomUUID(),
-          text,
-        },
-      ],
-    }));
+    setToDoList(prevState  => [...prevState,{id:crypto.randomUUID(),text}]
+    );
   };
 
-  getFilteredToDO = () => {
-    const { filter, toDoList } = this.state;
+ const  getFilteredToDO = () => {
+
     return toDoList.filter(({ text }) =>
       text.toLowerCase().includes(filter.toLocaleLowerCase())
     );
   };
-  handleEdit = toDo => {
-    this.setState({ isEditing: true, curentToDo: { ...toDo } });
+
+
+  const handleEdit = toDo => {
+    setIsEditing(true);
+    setCurrentToDo(toDo);
   };
 
-  handelCansel = () => {
-    this.setState({ isEditing: false });
+ const  handelCansel = () => {
+  setIsEditing(false)
   };
-  handelInputEditChange = event => {
-    this.setState(prevState => ({
-      curentToDo: { ...prevState.curentToDo, text: event.target.value },
+
+
+  const handelInputEditChange = event => {
+    setCurrentToDo (prevState => ({
+       ...prevState, text: event.target.value,
     }));
   };
 
-  handelUpDateToDo = event => {
+ const  handelUpDateToDo = event => {
     event.preventDefault();
-    const { curentToDo } = this.state;
-    if (!curentToDo.text) {
+    if (!currentToDo.text) {
       alert('Enter some text');
       return;
     }
-    this.setState(prevState => ({
-      isEditing: false,
-      toDoList: prevState.toDoList.map(toDo =>
-        toDo.id === curentToDo.id ? curentToDo : toDo
-      ),
-    }));
-  };
+setIsEditing(false);
+setToDoList(prevState => prevState.map(toDo =>
+  toDo.id === currentToDo.id ? currentToDo : toDo
+))
+};
 
-  render() {
-    const { curentToDo } = this.state;
-    const filteredToDo = this.getFilteredToDO();
+
+    const filteredToDo = getFilteredToDO();
     return (
       <>
-        {this.state.isEditing ? (
+        {isEditing ? (
           <EditForm
-            curentToDo={curentToDo}
-            handelCansel={this.handelCansel}
-            handelInputEditChange={this.handelInputEditChange}
-            handelUpDateToDo={this.handelUpDateToDo}
+            curentToDo={currentToDo}
+            handelCansel={handelCansel}
+            handelInputEditChange={handelInputEditChange}
+            handelUpDateToDo={handelUpDateToDo}
           />
         ) : (
-          <ToDoForm onSubmit={this.onSubmit} />
+          <ToDoForm onSubmit={onSubmit} />
         )}
 
-        <Filter handleFilter={this.handleFilter} />
+        <Filter handleFilter={handleFilter} />
         <ToDoList
-          handleEdit={this.handleEdit}
+          handleEdit={handleEdit}
           toDo={filteredToDo}
-          onDeleteToDo={this.onDeleteToDo}
+          onDeleteToDo={onDeleteToDo}
         />
       </>
     );
-  }
+  
 }
