@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const GalleryList = ({ images }) => {
+export const GalleryList = ({ images, openModal }) => {
   return (
     <ul
       style={{
@@ -11,7 +11,12 @@ export const GalleryList = ({ images }) => {
     >
       {images.map(({ id, alt, src: { large } }) => (
         <li key={id}>
-          <img src={large} alt={alt} width="150" />
+          <img
+            src={large}
+            alt={alt}
+            width="150"
+            onClick={() => openModal({ large, alt })}
+          />
         </li>
       ))}
     </ul>
