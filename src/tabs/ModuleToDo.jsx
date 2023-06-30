@@ -10,6 +10,7 @@ export const ModuleToDo = () => {
   const [filter, setFilter] = useState('');
   const [isEditing, setIsEditing] = useState(false);
   const [currentToDo, setCurrentToDo] = useState({});
+  const [select, setSelect] = useState(false);
 
   const handleFilter = e => {
     setFilter(e.target.value);
@@ -28,12 +29,6 @@ export const ModuleToDo = () => {
       return;
     }
     setToDoList(prevState => [...prevState, { id: crypto.randomUUID(), text }]);
-  };
-
-  const getFilteredToDO = () => {
-    return toDoList.filter(({ text }) =>
-      text.toLowerCase().includes(filter.toLocaleLowerCase())
-    );
   };
 
   const handleEdit = toDo => {
@@ -64,7 +59,7 @@ export const ModuleToDo = () => {
     );
   };
 
-  const filteredToDo = getFilteredToDO();
+  // const filteredToDo = getFilteredToDO();
   return (
     <>
       {isEditing ? (
@@ -77,11 +72,13 @@ export const ModuleToDo = () => {
       ) : (
         <ToDoForm onSubmit={onSubmit} />
       )}
-
+      <button onClick={() => setSelect(prev => !prev)}>Change select</button>
       <Filter handleFilter={handleFilter} />
       <ToDoList
+        theme={select}
+        filter={filter}
         handleEdit={handleEdit}
-        toDo={filteredToDo}
+        toDo={toDoList}
         onDeleteToDo={onDeleteToDo}
       />
     </>

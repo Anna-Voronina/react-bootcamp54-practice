@@ -7,11 +7,25 @@ import {
   TodoWrapper,
 } from './ToDoList.styled';
 import { RiDeleteBinLine, RiEdit2Line } from 'react-icons/ri';
+import { useMemo } from 'react';
 
-export const ToDoList = ({ toDo, onDeleteToDo,handleEdit }) => {
+const getFilteredToDO = (toDoList, filter) => {
+  let count = 0;
+  for (let i = 0; i < 100000000; i++) {
+    count += i;
+  }
+  return toDoList.filter(({ text }) =>
+    text.toLowerCase().includes(filter.toLocaleLowerCase())
+  );
+};
+
+export const ToDoList = ({ theme, toDo, onDeleteToDo, handleEdit, filter }) => {
+  console.time('filter');
+  const todos = useMemo(() => getFilteredToDO(toDo, filter), [toDo, filter]);
+  console.timeEnd('filter');
   return (
-    <Grid>
-      {toDo.map((item, index) => (
+    <Grid select={theme}>
+      {todos.map((item, index) => (
         <GridItem key={item.id}>
           <TodoWrapper>
             <Text textAlign="center" marginBottom="20px">
