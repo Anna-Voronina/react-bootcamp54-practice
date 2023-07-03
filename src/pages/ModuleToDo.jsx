@@ -5,7 +5,7 @@ import { ToDoList } from 'components/ToDoList/ToDoList';
 import { useLocalStorage } from 'hooks/useLocalStorage';
 import { useState } from 'react';
 
-export const ModuleToDo = () => {
+const ModuleToDo = () => {
   const [toDoList, setToDoList] = useLocalStorage('toDoList', []);
   const [filter, setFilter] = useState('');
   const [isEditing, setIsEditing] = useState(false);
@@ -84,3 +84,5 @@ export const ModuleToDo = () => {
     </>
   );
 };
+
+export default ModuleToDo;

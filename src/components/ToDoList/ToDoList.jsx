@@ -14,6 +14,7 @@ const getFilteredToDO = (toDoList, filter) => {
   for (let i = 0; i < 100000000; i++) {
     count += i;
   }
+  console.log(count);
   return toDoList.filter(({ text }) =>
     text.toLowerCase().includes(filter.toLocaleLowerCase())
   );
