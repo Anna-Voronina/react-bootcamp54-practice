@@ -5,12 +5,13 @@ import './index.css';
 import { ThemeProvider } from 'styled-components';
 import { theme } from 'styles/theme';
 import GlobalCSS from 'styles/global.styles';
+import { BrowserRouter } from 'react-router-dom';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  // <React.StrictMode>
-  <ThemeProvider theme={theme}>
-    <App />
-    <GlobalCSS />
-  </ThemeProvider>
-  // </React.StrictMode>
+  <BrowserRouter basename="/react-bootcamp54-practice">
+    <ThemeProvider theme={theme}>
+      <App />
+      <GlobalCSS />
+    </ThemeProvider>
+  </BrowserRouter>
 );

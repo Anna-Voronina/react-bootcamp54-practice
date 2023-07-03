@@ -1,9 +1,11 @@
 import Points from 'components/Points/Points';
 
-export const ModuleTwo = () => {
+const ModuleTwo = () => {
   return (
     <div>
       <Points />
     </div>
   );
 };
+
+export default ModuleTwo;

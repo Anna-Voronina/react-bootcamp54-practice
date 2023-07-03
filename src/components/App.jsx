@@ -1,31 +1,22 @@
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import 'react-tabs/style/react-tabs.css';
-import { Gallery, ModuleOne, ModuleToDo, ModuleTwo } from 'tabs';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import { Layout } from './Layout/Layout';
+import Home from 'pages/Home';
+import ModuleOne from 'pages/ModuleOne';
+import ModuleTwo from 'pages/ModuleTwo';
+import ModuleToDo from 'pages/ModuleToDo';
+import Gallery from 'pages/Gallery';
 
 export const App = () => {
   return (
-    <>
-      <Tabs>
-        <TabList>
-          <Tab>Module One</Tab>
-          <Tab>Module Two</Tab>
-          <Tab>Module ToDo</Tab>
-          <Tab>Gallery</Tab>
-        </TabList>
-
-        <TabPanel>
-          <ModuleOne />
-        </TabPanel>
-        <TabPanel>
-          <ModuleTwo />
-        </TabPanel>
-        <TabPanel>
-          <ModuleToDo />
-        </TabPanel>
-        <TabPanel>
-          <Gallery />
-        </TabPanel>
-      </Tabs>
-    </>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Home />} />
+        <Route path="one" element={<ModuleOne />} />
+        <Route path="two" element={<ModuleTwo />} />
+        <Route path="todo" element={<ModuleToDo />} />
+        <Route path="gallery" element={<Gallery />} />
+      </Route>
+      <Route path="*" element={<Navigate to="/" />} />
+    </Routes>
   );
 };

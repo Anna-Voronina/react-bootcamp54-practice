@@ -3,7 +3,7 @@ import { Stats } from 'components/Stats/Stats';
 import article from 'data/article.json';
 import data from 'data/data.json';
 
-export const ModuleOne = () => {
+const ModuleOne = () => {
   return (
     <>
       <BlogCard {...article} />
@@ -11,3 +11,5 @@ export const ModuleOne = () => {
     </>
   );
 };
+
+export default ModuleOne;
