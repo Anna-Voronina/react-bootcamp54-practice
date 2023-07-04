@@ -20,7 +20,6 @@ const SearchCocktails = () => {
 
   return (
     <>
-      {' '}
       <ToDoForm onSubmit={handleSubmit} />
       <CocktailsList arr={cocktails} />
     </>

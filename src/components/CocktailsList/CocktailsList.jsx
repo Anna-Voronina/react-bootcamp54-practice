@@ -1,15 +1,17 @@
 import React from 'react';
-import styled from 'styled-components';
-import PropTypes from 'prop-types';
+import { Link, useLocation } from 'react-router-dom';
 
 const CocktailsList = ({ arr }) => {
+  const location = useLocation();
   return (
     <ul>
-      {arr.map(el => (
-        <li key={el.idDrink}>
-          <img src={el.strDrinkThumb} alt={el.strDrink} width="150" />
-          <h3>{el.strDrink}</h3>
-          <span>{el.strGlass}</span>
+      {arr.map((el, index) => (
+        <li key={el.idDrink + index}>
+          <Link to={`/searchcocktails/${el.idDrink}`} state={{from: location}}>
+            <img src={el.strDrinkThumb} alt={el.strDrink} width="150" />
+            <h3>{el.strDrink}</h3>
+            <span>{el.strGlass}</span>
+          </Link>
         </li>
       ))}
     </ul>
