@@ -22,3 +22,8 @@ export const getFilteredCocktails = async q => {
   const { data } = await apiBase.get(`/search.php?s=${q}`);
   return data;
 };
+
+export const getCocktailInfo = async (id) => {
+  const { data } = await apiBase.get(`/lookup.php?i=${id}`);
+  return data.drinks[0];
+};

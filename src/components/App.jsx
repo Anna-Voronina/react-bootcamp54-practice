@@ -7,6 +7,7 @@ import ModuleToDo from 'pages/ModuleToDo';
 import Gallery from 'pages/Gallery';
 import Coctails from 'pages/Coctails';
 import SearchCocktails from 'pages/SearchCocktails';
+import CocktailsDetails from 'pages/CocktailsDetails';
 
 export const App = () => {
   return (
@@ -19,7 +20,11 @@ export const App = () => {
         <Route path="gallery" element={<Gallery />} />
         <Route path="coctails" element={<Coctails />} />
         <Route path="searchcocktails" element={<SearchCocktails />} />
-      </Route>
+        <Route
+          path="searchcocktails/:cocktailId"
+          element={<CocktailsDetails />}
+        />
+      </Route>  
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   );

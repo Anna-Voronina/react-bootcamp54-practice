@@ -8,7 +8,6 @@ const Coctails = () => {
   useEffect(() => {
     getTrendingCocktails().then(resp => {
       const normalizeResponse = resp.map(cocktail => cocktail.drinks[0]);
-      console.log(normalizeResponse);
       setCocktails(normalizeResponse);
     });
   }, []);
