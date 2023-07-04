@@ -5,6 +5,8 @@ const routes = [
   { path: '/two', text: 'Module Two' },
   { path: '/todo', text: 'Module ToDo' },
   { path: '/gallery', text: 'Gallery' },
+  { path: '/coctails', text: 'Coctails' },
+  { path: '/searchcocktails', text: 'Search Cocktails' },
 ];
 
 export const Layout = () => {
