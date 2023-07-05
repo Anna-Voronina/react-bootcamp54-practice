@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const BASE_URL = 'https://www.thecocktaildb.com/api/json/v1/1';
-const API_KEY = '1';
+
 const BASE_URL_RANDOM =
   'https://www.thecocktaildb.com/api/json/v1/1/random.php';
 
@@ -23,7 +23,7 @@ export const getFilteredCocktails = async q => {
   return data;
 };
 
-export const getCocktailInfo = async (id) => {
+export const getCocktailInfo = async id => {
   const { data } = await apiBase.get(`/lookup.php?i=${id}`);
   return data.drinks[0];
 };

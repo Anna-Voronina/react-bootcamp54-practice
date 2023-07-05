@@ -1,7 +1,6 @@
 import CocktailsList from 'components/CocktailsList/CocktailsList';
 import React, { useEffect, useState } from 'react';
 import { getTrendingCocktails } from 'service/CoctailsApi';
-import styled from 'styled-components';
 
 const Coctails = () => {
   const [cocktails, setCocktails] = useState([]);
