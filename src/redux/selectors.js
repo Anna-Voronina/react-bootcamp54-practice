@@ -1,1 +1,2 @@
-export const selectToDos = state => state.items;
+export const selectToDos = state => state.todo.items;
+export const selectFilter = state => state.filter.value;

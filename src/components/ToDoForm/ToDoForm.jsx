@@ -1,18 +1,28 @@
 import { useState } from 'react';
 import { FormBtn, SearchFormStyled, InputSearch } from './ToDoForm.styled';
 import { FiSearch } from 'react-icons/fi';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addTodoAction } from 'redux/actions';
+import { selectToDos } from 'redux/selectors';
 
 export const ToDoForm = () => {
   const [value, setValue] = useState('');
   const dispatch = useDispatch();
+  const todos = useSelector(selectToDos);
   const handleChangeValue = ({ target }) => {
     setValue(target.value);
   };
 
   const handleSubmit = e => {
     e.preventDefault();
+
+    const isExsist = todos.find(
+      elem => elem.text.toLowerCase() === value.toLowerCase()
+    );
+    if (isExsist) {
+      alert('Text already exsist!');
+      return;
+    }
 
     dispatch(addTodoAction(value));
     setValue('');

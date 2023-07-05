@@ -8,29 +8,24 @@ import {
   TodoWrapper,
 } from './ToDoList.styled';
 import { RiDeleteBinLine, RiEdit2Line } from 'react-icons/ri';
-import { selectToDos } from 'redux/selectors';
+import { selectFilter, selectToDos } from 'redux/selectors';
 import { deleteTodoAction } from 'redux/actions';
 
-// const getFilteredToDO = (toDoList, filter) => {
-//   let count = 0;
-//   for (let i = 0; i < 100000000; i++) {
-//     count += i;
-//   }
-//   console.log(count);
-//   return toDoList.filter(({ text }) =>
-//     text.toLowerCase().includes(filter.toLocaleLowerCase())
-//   );
-// };
-
-export const ToDoList = ({ theme, toDo, onDeleteToDo, handleEdit, filter }) => {
-  // console.time('filter');
-  // const todos = useMemo(() => getFilteredToDO(toDo, filter), [toDo, filter]);
-  // console.timeEnd('filter');
+export const ToDoList = ({ theme, handleEdit }) => {
   const todos = useSelector(selectToDos);
+  const filter = useSelector(selectFilter);
   const dispatch = useDispatch();
+
+  const getFilterTodo = () => {
+    return todos.filter(({ text }) =>
+      text.toLowerCase().includes(filter.toLocaleLowerCase())
+    );
+  };
+  const filteredTodos = getFilterTodo();
+
   return (
     <Grid select={theme}>
-      {todos.map((item, index) => (
+      {filteredTodos.map((item, index) => (
         <GridItem key={item.id}>
           <TodoWrapper>
             <Text textAlign="center" marginBottom="20px">
@@ -44,7 +39,7 @@ export const ToDoList = ({ theme, toDo, onDeleteToDo, handleEdit, filter }) => {
               <RiDeleteBinLine size={24} />
             </DeleteButton>
 
-            <EditButton type="button" onClick={() => handleEdit(item)}>
+            <EditButton type="button" onClick={() => null}>
               <RiEdit2Line size={24} />
             </EditButton>
           </TodoWrapper>

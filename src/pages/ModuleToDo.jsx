@@ -2,34 +2,12 @@ import { EditForm } from 'components/EditForm/EditForm';
 import Filter from 'components/Filter/Filter';
 import { ToDoForm } from 'components/ToDoForm/ToDoForm';
 import { ToDoList } from 'components/ToDoList/ToDoList';
-import { useLocalStorage } from 'hooks/useLocalStorage';
 import { useState } from 'react';
 
 const ModuleToDo = () => {
-  const [toDoList, setToDoList] = useLocalStorage('toDoList', []);
-  const [filter, setFilter] = useState('');
   const [isEditing, setIsEditing] = useState(false);
   const [currentToDo, setCurrentToDo] = useState({});
-  const [select, setSelect] = useState(false);
-
-  const handleFilter = e => {
-    setFilter(e.target.value);
-  };
-
-  const onDeleteToDo = id => {
-    setToDoList(prevState => prevState.filter(item => item.id !== id));
-  };
-
-  const onSubmit = text => {
-    const isExsist = toDoList.find(
-      elem => elem.text.toLowerCase() === text.toLowerCase()
-    );
-    if (isExsist) {
-      alert('Text already exsist!');
-      return;
-    }
-    setToDoList(prevState => [...prevState, { id: crypto.randomUUID(), text }]);
-  };
+  const [select] = useState(false);
 
   const handleEdit = toDo => {
     setIsEditing(true);
@@ -54,12 +32,12 @@ const ModuleToDo = () => {
       return;
     }
     setIsEditing(false);
-    setToDoList(prevState =>
-      prevState.map(toDo => (toDo.id === currentToDo.id ? currentToDo : toDo))
-    );
+
+    // setToDoList(prevState =>
+    //   prevState.map(toDo => (toDo.id === currentToDo.id ? currentToDo : toDo))
+    // );
   };
 
-  // const filteredToDo = getFilteredToDO();
   return (
     <>
       {isEditing ? (
@@ -70,17 +48,10 @@ const ModuleToDo = () => {
           handelUpDateToDo={handelUpDateToDo}
         />
       ) : (
-        <ToDoForm onSubmit={onSubmit} />
+        <ToDoForm />
       )}
-      <button onClick={() => setSelect(prev => !prev)}>Change select</button>
-      <Filter handleFilter={handleFilter} />
-      <ToDoList
-        theme={select}
-        filter={filter}
-        handleEdit={handleEdit}
-        toDo={toDoList}
-        onDeleteToDo={onDeleteToDo}
-      />
+      <Filter />
+      <ToDoList theme={select} handleEdit={handleEdit} />
     </>
   );
 };

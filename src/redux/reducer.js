@@ -1,4 +1,4 @@
-import { ADD_TODO, DELETE_TODO } from './constants';
+import { ADD_TODO, DELETE_TODO, FILTER_TODO } from './constants';
 
 const initialState = {
   items: [
@@ -29,5 +29,22 @@ export const todoReducer = (state = initialState, action) => {
 
     default:
       return { ...state };
+  }
+};
+
+const filterInitialState = {
+  value: '',
+};
+
+export const filterReducer = (
+  state = filterInitialState,
+  { type, payload }
+) => {
+  switch (type) {
+    case FILTER_TODO:
+      return { ...state, value: payload };
+
+    default:
+      return state;
   }
 };
