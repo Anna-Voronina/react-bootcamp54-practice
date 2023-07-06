@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { FormBtn, SearchFormStyled, InputSearch } from './ToDoForm.styled';
 import { FiSearch } from 'react-icons/fi';
 import { useDispatch, useSelector } from 'react-redux';
-import { addTodoAction } from 'redux/actions';
 import { selectToDos } from 'redux/selectors';
+import { addTodo } from 'redux/todoSlice';
 
 export const ToDoForm = () => {
   const [value, setValue] = useState('');
@@ -24,7 +24,7 @@ export const ToDoForm = () => {
       return;
     }
 
-    dispatch(addTodoAction(value));
+    dispatch(addTodo(value));
     setValue('');
   };
   return (
