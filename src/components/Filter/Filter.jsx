@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { addFilterAction } from 'redux/actions';
+import { addFilter } from 'redux/filterSlice';
 
 const Filter = () => {
   const dispatch = useDispatch();
@@ -7,7 +7,7 @@ const Filter = () => {
   return (
     <input
       placeholder="find to do"
-      onChange={e => dispatch(addFilterAction(e.target.value))}
+      onChange={e => dispatch(addFilter(e.target.value))}
     />
   );
 };
