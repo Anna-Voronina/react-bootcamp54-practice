@@ -1,6 +1,7 @@
 import { combineReducers, createStore } from 'redux';
-import { filterReducer, todoReducer } from './reducer';
+import { filterReducer } from './reducer';
 import { devToolsEnhancer } from '@redux-devtools/extension';
+import { todoReducer } from './todoSlice';
 const enhancer = devToolsEnhancer();
 
 const rootReducer = combineReducers({
