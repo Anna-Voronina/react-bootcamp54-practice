@@ -20,6 +20,7 @@
     "react-scripts": "5.0.1",
     "react-tabs": "^6.0.1",
     "redux": "^4.2.1",
+    "redux-persist": "^6.0.0",
     "styled-components": "^5.3.11",
     "web-vitals": "^2.1.3"
   },
