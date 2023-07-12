@@ -8,12 +8,16 @@ import Gallery from 'pages/Gallery';
 import Coctails from 'pages/Coctails';
 import SearchCocktails from 'pages/SearchCocktails';
 import CocktailsDetails from 'pages/CocktailsDetails';
+import { RegisterPage } from 'pages/RegisterPage';
+import { LoginPage } from 'pages/LoginPage';
 
 export const App = () => {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
+        <Route path="register" element={<RegisterPage />} />
+        <Route path="login" element={<LoginPage />} />
         <Route path="one" element={<ModuleOne />} />
         <Route path="two" element={<ModuleTwo />} />
         <Route path="todo" element={<ModuleToDo />} />
@@ -24,7 +28,7 @@ export const App = () => {
           path="searchcocktails/:cocktailId"
           element={<CocktailsDetails />}
         />
-      </Route>  
+      </Route>
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   );

@@ -9,7 +9,7 @@ import {
 } from './ToDoList.styled';
 import { RiDeleteBinLine, RiEdit2Line } from 'react-icons/ri';
 import { selectFilter, selectToDos } from 'redux/selectors';
-import { deleteTodo } from 'redux/todoSlice';
+import { deleteTodoThunk } from 'redux/todo/operations';
 
 export const ToDoList = ({ theme, handleEdit }) => {
   const todos = useSelector(selectToDos);
@@ -34,7 +34,7 @@ export const ToDoList = ({ theme, handleEdit }) => {
             <Text>{item.text}</Text>
             <DeleteButton
               type="button"
-              onClick={() => dispatch(deleteTodo(item.id))}
+              onClick={() => dispatch(deleteTodoThunk(item.id))}
             >
               <RiDeleteBinLine size={24} />
             </DeleteButton>
