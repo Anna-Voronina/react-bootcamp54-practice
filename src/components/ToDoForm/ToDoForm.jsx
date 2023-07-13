@@ -3,7 +3,7 @@ import { FormBtn, SearchFormStyled, InputSearch } from './ToDoForm.styled';
 import { FiSearch } from 'react-icons/fi';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectToDos } from 'redux/selectors';
-import { addTodo } from 'redux/todoSlice';
+import { addTodoThunk } from 'redux/todo/operations';
 
 export const ToDoForm = () => {
   const [value, setValue] = useState('');
@@ -24,7 +24,7 @@ export const ToDoForm = () => {
       return;
     }
 
-    dispatch(addTodo(value));
+    dispatch(addTodoThunk({ text: value }));
     setValue('');
   };
   return (
