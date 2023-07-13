@@ -1,5 +1,6 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { logoutThunk } from 'redux/auth/authOperations';
 import { selectUser } from 'redux/auth/selector';
 
 const routes = [
@@ -12,6 +13,7 @@ const routes = [
 ];
 
 export const UserMenu = () => {
+  const dispatch = useDispatch();
   const user = useSelector(selectUser);
   return (
     <>
@@ -23,6 +25,9 @@ export const UserMenu = () => {
           </li>
         ))}
       </ul>
+      <button type="button" onClick={() => dispatch(logoutThunk())}>
+        Logout
+      </button>
     </>
   );
 };

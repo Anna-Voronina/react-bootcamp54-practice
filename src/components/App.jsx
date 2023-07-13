@@ -10,23 +10,90 @@ import SearchCocktails from 'pages/SearchCocktails';
 import CocktailsDetails from 'pages/CocktailsDetails';
 import { RegisterPage } from 'pages/RegisterPage';
 import { LoginPage } from 'pages/LoginPage';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux/es';
+import { refreshThunk } from 'redux/auth/authOperations';
+import { RestrictedRoute } from './RestrictedRout/RestrictedRoute';
+import { PrivateRoute } from './PrivateRoute/PrivateRoute';
+import { selectRefresh } from 'redux/auth/selector';
 
 export const App = () => {
-  return (
+  const dispatch = useDispatch();
+  const isRefreshing = useSelector(selectRefresh);
+  useEffect(() => {
+    dispatch(refreshThunk());
+  }, [dispatch]);
+  return isRefreshing ? (
+    <p>Refreshing...</p>
+  ) : (
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
-        <Route path="register" element={<RegisterPage />} />
-        <Route path="login" element={<LoginPage />} />
-        <Route path="one" element={<ModuleOne />} />
-        <Route path="two" element={<ModuleTwo />} />
-        <Route path="todo" element={<ModuleToDo />} />
-        <Route path="gallery" element={<Gallery />} />
-        <Route path="coctails" element={<Coctails />} />
-        <Route path="searchcocktails" element={<SearchCocktails />} />
+
+        <Route
+          path="register"
+          element={
+            <RestrictedRoute
+              restrictetTo="/todo"
+              component={<RegisterPage />}
+            />
+          }
+        />
+
+        <Route
+          path="login"
+          element={
+            <RestrictedRoute restrictetTo="/todo" component={<LoginPage />} />
+          }
+        />
+
+        <Route
+          path="one"
+          element={
+            <PrivateRoute restrictetTo="/login" component={<ModuleOne />} />
+          }
+        />
+        <Route
+          path="two"
+          element={
+            <PrivateRoute restrictetTo="/login" component={<ModuleTwo />} />
+          }
+        />
+        <Route
+          path="todo"
+          element={
+            <PrivateRoute restrictetTo="/login" component={<ModuleToDo />} />
+          }
+        />
+        <Route
+          path="gallery"
+          element={
+            <PrivateRoute restrictetTo="/login" component={<Gallery />} />
+          }
+        />
+        <Route
+          path="coctails"
+          element={
+            <PrivateRoute restrictetTo="/login" component={<Coctails />} />
+          }
+        />
+        <Route
+          path="searchcocktails"
+          element={
+            <PrivateRoute
+              restrictetTo="/login"
+              component={<SearchCocktails />}
+            />
+          }
+        />
         <Route
           path="searchcocktails/:cocktailId"
-          element={<CocktailsDetails />}
+          element={
+            <PrivateRoute
+              restrictetTo="/login"
+              component={<CocktailsDetails />}
+            />
+          }
         />
       </Route>
       <Route path="*" element={<Navigate to="/" />} />

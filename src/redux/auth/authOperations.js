@@ -40,3 +40,34 @@ export const loginThunk = createAsyncThunk(
     }
   }
 );
+
+export const refreshThunk = createAsyncThunk(
+  'auth/refresh',
+  async (_, thunkAPI) => {
+    const {
+      auth: { token },
+    } = thunkAPI.getState();
+    console.log(token);
+    if (!token) {
+      return thunkAPI.rejectWithValue('Unable to fetch user');
+    }
+    try {
+      setAuthHeader(token);
+      const { data } = await instance.get('/users/me');
+      return data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+export const logoutThunk = createAsyncThunk(
+  'auth/logout',
+  async (_, thunkAPI) => {
+    try {
+      await instance.post('users/logout');
+      clearAuthHeader();
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
