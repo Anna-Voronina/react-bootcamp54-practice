@@ -10,9 +10,11 @@ import {
 import { RiDeleteBinLine, RiEdit2Line } from 'react-icons/ri';
 import { selectFilter, selectToDos } from 'redux/selectors';
 import { deleteTodoThunk } from 'redux/todo/operations';
+import { setCurrentTodo, toggleEditing } from 'redux/todo/todoSlice';
 
-export const ToDoList = ({ theme, handleEdit }) => {
+export const ToDoList = ({ theme }) => {
   const todos = useSelector(selectToDos);
+
   const filter = useSelector(selectFilter);
   const dispatch = useDispatch();
 
@@ -39,7 +41,13 @@ export const ToDoList = ({ theme, handleEdit }) => {
               <RiDeleteBinLine size={24} />
             </DeleteButton>
 
-            <EditButton type="button" onClick={() => null}>
+            <EditButton
+              type="button"
+              onClick={() => {
+                dispatch(toggleEditing());
+                dispatch(setCurrentTodo(item));
+              }}
+            >
               <RiEdit2Line size={24} />
             </EditButton>
           </TodoWrapper>

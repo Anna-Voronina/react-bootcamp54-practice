@@ -39,3 +39,16 @@ export const deleteTodoThunk = createAsyncThunk(
     }
   }
 );
+
+export const editTodoThunk = createAsyncThunk(
+  'todo/editTodo',
+  async ({ id, text }, thunkAPI) => {
+    try {
+      const { data } = await instance.patch(`/tasks/${id}`, { text });
+
+      return data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
